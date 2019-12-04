@@ -15,7 +15,7 @@ int streamGet(struct Stream *s, int *finished)
 }
 
 /*
-peak examples from
+valley based on peak example.
 http://sofdem.github.io/gccat/gccat/Cpeak.html
 (2,⟨1,1,4,8,6,2,7,1⟩)
 (0,⟨1,1,4,4,4,6,7,7⟩)
@@ -32,16 +32,16 @@ main()
    s.size = 8;
    s.cnt = 0;
 
-   int val = peak(&s, 2);
-   printf("result for peak({1,1,4,8,6,2,7,1},2) i.e. are there two peaks in the data? %d\n", val);
+   int val = valley(&s, 2);
+   printf("result for valley({1,1,4,8,6,2,7,1},2) i.e. are there two valleys in the data? %d\n", val);
 
    s.buffer = data2;
    s.size = 9;
    s.cnt = 0;
 
-   val = peak(&s, 4);
-   printf("result for peak({1,5,4,9,4,6,2,7,6},4) i.e. are there 4 peaks in the data? %d\n", val);
+   val = valley(&s, 4);
+   printf("result for valley({1,5,4,9,4,6,2,7,6},4) i.e. are there 4 valleys in the data? %d\n", val);
 
-   val = peak(&s, 5);
-   printf("result for peak({1,5,4,9,4,6,2,7,6},5) i.e. are there 5 peaks in the data? %d\n", val);
+   val = valley(&s, 5);
+   printf("result for valley({1,5,4,9,4,6,2,7,6},5) i.e. are there 5 valleys in the data? %d\n", val);
 }
