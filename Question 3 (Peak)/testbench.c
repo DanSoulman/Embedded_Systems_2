@@ -32,7 +32,7 @@ main()
    s.size = 8;
    s.cnt = 0;
 
-   int val = valley(&s, 2);
+   int val = valley(&s, 2); //TODO: Resolve undefined reference to `valley'
    printf("result for valley({1,1,4,8,6,2,7,1},2) i.e. are there two valleys in the data? %d\n", val);
 
    s.buffer = data2;
