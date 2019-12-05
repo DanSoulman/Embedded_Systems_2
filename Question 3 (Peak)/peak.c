@@ -2,7 +2,7 @@
 int peak(struct Stream *s, int n)
 {
 
-   int prev;
+   int prev = 0;
    int c = 0;
    int state = 0;
    int finish = 0;

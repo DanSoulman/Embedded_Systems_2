@@ -1,5 +1,8 @@
-
+#include <stdio.h>
 #include "Stream.h"
+#include "peak.c"
+#include "valley.c"
+
 int streamGet(struct Stream *s, int *finished)
 {
    *finished = 0;
@@ -32,16 +35,33 @@ main()
    s.size = 8;
    s.cnt = 0;
 
-   int val = valley(&s, 2); //TODO: Resolve undefined reference to `valley'
-   printf("result for valley({1,1,4,8,6,2,7,1},2) i.e. are there two valleys in the data? %d\n", val);
+   int val0 = peak(&s, 2);
+   printf("result for peak({1,1,4,8,6,2,7,1},2) i.e. are there two peaks in the data? %d\n", val0);
+
+   s.cnt = 0; //resets count
+
+   int val1 = valley(&s, 1);
+   printf("result for valley({1,1,4,8,6,2,7,1},1) i.e. are there one valleys in the data? %d\n", val1);
 
    s.buffer = data2;
    s.size = 9;
    s.cnt = 0;
 
-   val = valley(&s, 4);
-   printf("result for valley({1,5,4,9,4,6,2,7,6},4) i.e. are there 4 valleys in the data? %d\n", val);
+   val0 = peak(&s, 4);
+   printf("result for peak({1,5,4,9,4,6,2,7,6},4) i.e. are there 4 peak in the data? %d\n", val0);
 
-   val = valley(&s, 5);
-   printf("result for valley({1,5,4,9,4,6,2,7,6},5) i.e. are there 5 valleys in the data? %d\n", val);
+   s.cnt = 0; //resets count
+
+   val1 = valley(&s, 3);
+   printf("result for valley({1,5,4,9,4,6,2,7,6},3) i.e. are there 3 valleys in the data? %d\n", val1);
+   
+   s.cnt = 0; //reset count
+
+   val0 = peak(&s, 5);
+   printf("result for peak({1,5,4,9,4,6,2,7,6},5) i.e. are there 5 peaks in the data? %d\n", val0);
+
+   s.cnt = 0; //reset count
+
+   val1 = valley(&s, 5); //Note this one returns 0 as there ISN'T 5 peaks
+   printf("result for valley({1,5,4,9,4,6,2,7,6},5) i.e. are there 5 valleys in the data? %d\n", val1);
 }
