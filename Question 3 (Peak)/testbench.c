@@ -2,6 +2,7 @@
 #include "Stream.h"
 #include "peak.c"
 #include "valley.c"
+#include "increasingpeak.c"
 
 int streamGet(struct Stream *s, int *finished)
 {
@@ -43,6 +44,11 @@ main()
    int val1 = valley(&s, 1);
    printf("result for valley({1,1,4,8,6,2,7,1},1) i.e. are there one valleys in the data? %d\n", val1);
 
+   s.cnt = 0; //reset count
+
+   int val2 = increasing_peak(&s, 0);
+   printf("result for increasing ({1,1,4,8,6,2,7,1},0) i.e. are there are no peaks in the data? %d\n", val2);
+
    s.buffer = data2;
    s.size = 9;
    s.cnt = 0;
@@ -53,8 +59,13 @@ main()
    s.cnt = 0; //resets count
 
    val1 = valley(&s, 3);
-   printf("result for valley({1,5,4,9,4,6,2,7,6},3) i.e. are there 3 valleys in the data? %d\n", val1);
+   printf("result for valley ({1,5,4,9,4,6,2,7,6},3) i.e. are there 3 valleys in the data? %d\n", val1);
    
+   s.cnt = 0; //reset count
+
+   val2 = increasing_peak(&s, 1);
+   printf("result for increasing ({1,5,4,9,4,6,2,7,6},1) i.e. are theres one increasing peaks in the data? %d\n", val2);
+
    s.cnt = 0; //reset count
 
    val0 = peak(&s, 5);
@@ -64,4 +75,12 @@ main()
 
    val1 = valley(&s, 5); //Note this one returns 0 as there ISN'T 5 peaks
    printf("result for valley({1,5,4,9,4,6,2,7,6},5) i.e. are there 5 valleys in the data? %d\n", val1);
+
+   s.cnt = 0; //reset count
+
+   val2 = increasing_peak(&s, 5); //Note this one returns 0 as there ISN'T 5 peaks
+   printf("result for increasing ({1,5,4,9,4,6,2,7,6},5) i.e. are there are five increasing peaks in the data? %d\n", val2);
+
+   s.cnt = 0; //reset count
+
 }
