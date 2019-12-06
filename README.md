@@ -5,4 +5,4 @@ We had to set a pacman sprite to be able to move around the screen with key prom
 ## Q2 
 We had to explain the Clang output. All my work is in the .ost file
 ## Q3
-TO BE UPDATED. 
+Tracks is a dataset has peaks, valleys and follows the constraints of an increasing peak. 
