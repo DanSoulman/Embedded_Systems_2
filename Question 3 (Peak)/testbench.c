@@ -30,6 +30,7 @@ main()
 
    int data1[] = {1, 1, 4, 8, 6, 2, 7, 1};
    int data2[] = {1, 5, 4, 9, 4, 6, 2, 7, 6};
+   int data3[] = {1, 2, 1, 3, 1, 4, 1 , 5}; //Made to show val2 pass
    struct Stream s;
 
    s.buffer = data1;
@@ -46,8 +47,8 @@ main()
 
    s.cnt = 0; //reset count
 
-   int val2 = increasing_peak(&s, 0);
-   printf("result for increasing ({1,1,4,8,6,2,7,1},0) i.e. are there are no peaks in the data? %d\n", val2);
+   int val2 = increasing_peak(&s);
+   printf("Tests constraint on ({1,1,4,8,6,2,7,1},1). On fail shows 0, on success shows 1: %d\n", val2);
 
    s.buffer = data2;
    s.size = 9;
@@ -63,8 +64,8 @@ main()
    
    s.cnt = 0; //reset count
 
-   val2 = increasing_peak(&s, 1);
-   printf("result for increasing ({1,5,4,9,4,6,2,7,6},1) i.e. are theres one increasing peaks in the data? %d\n", val2);
+   val2 = increasing_peak(&s);
+   printf("Tests constraint on ({1,5,4,9,4,6,2,7,6}. On fail shows 0, on success shows 1: %d\n", val2);
 
    s.cnt = 0; //reset count
 
@@ -76,10 +77,12 @@ main()
    val1 = valley(&s, 5); //Note this one returns 0 as there ISN'T 5 peaks
    printf("result for valley({1,5,4,9,4,6,2,7,6},5) i.e. are there 5 valleys in the data? %d\n", val1);
 
+   s.buffer = data3; // working data set
+   s.size = 8; //8 values
    s.cnt = 0; //reset count
-
-   val2 = increasing_peak(&s, 5); //Note this one returns 0 as there ISN'T 5 peaks
-   printf("result for increasing ({1,5,4,9,4,6,2,7,6},5) i.e. are there are five increasing peaks in the data? %d\n", val2);
+   
+   val2 = increasing_peak(&s); //Note this one returns 0 as there ISN'T 5 peaks
+   printf("Tests constraint on {1, 2, 1, 3, 1, 4, 1, 5}. On fail shows 0, on success shows 1: %d\n", val2);
 
    s.cnt = 0; //reset count
 

@@ -1,13 +1,11 @@
 #include "Stream.h"
-int increasing_peak(struct Stream *s, int n)
+int increasing_peak(struct Stream *s)
 {
 
     int prev = 0;
-    int c = 0;
     int state = 0;
     int finish = 0;
     int highest = 0;
-    int firstpeak = 0;
     //printf("peak1 cnt = %d size =%d\n",s->cnt,s->size);
     //if (n == 0) Removed so that there can be 0 peaks.
     //   return 0;
@@ -16,27 +14,34 @@ int increasing_peak(struct Stream *s, int n)
     if (finish)
         return 0;
     int curr = streamGet(s, &finish);
-    while (!finish && c < n)
+    while (!finish)
     {
         switch (state)
         {
-        case 0:
+        case 0: //Isn't peak Keep waiting
             if (prev < curr)
                 state = 1;
             break;
-        case 1:
-            if (prev > curr && highest < prev) //If its a higher peak.
+        case 1://waiting until found peak
+            if (prev > curr) //Peak has been found
             {
-                if (firstpeak = 0)
+                state = 2;// Next loop we go to case 2
+                highest = prev; //Sets higgest
+            }
+            break;
+        case 2://Started going down, wait for increase
+            if (prev < curr) //We found it's going back up. We can record next peak
+                state = 3; 
+            break;
+        case 3://Record peak
+            if (prev > curr)
+            {
+                if (highest > prev) //If it fails to beat highest constraint not met. Give up, return 0. It failed. 
                 {
-                    firstpeak += 1;
+                    return 0;
                 }
-                else
-                {
-                    c++; // found a peak
-                }
-                highest = curr;
-                state = 0;
+                state = 2;
+                highest = prev;
             }
             break;
         }
@@ -44,7 +49,5 @@ int increasing_peak(struct Stream *s, int n)
         curr = streamGet(s, &finish);
     }
     //printf("Count is %d", c); for testing
-    if (c == n)
-        return 1;
-    return 0;
+    return 1; //If successful return 1
 }
